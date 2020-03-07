@@ -11,7 +11,7 @@
 
     var busIcon = L.icon({
         iconUrl: 'bus2.png',
-        iconSize: [25, 50], // size of the icon
+        iconSize: [50, 50], // size of the icon
     });
 
     let markers = null;
