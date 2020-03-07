@@ -6,7 +6,7 @@
     var map = L.map('theMap').setView([44.650627, -63.597140], 14);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, , Data by <a href="https://www.halifax.ca/home/open-data/halifax-transit-open-data">Halifax Transit</a>,'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Data by <a href="https://www.halifax.ca/home/open-data/halifax-transit-open-data">Halifax Transit</a>,'
     }).addTo(map);
 
     var busIcon = L.icon({
