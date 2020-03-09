@@ -109,5 +109,5 @@
     };
 
     // fetchData();
-    setInterval(fetchData, 3000);
+    setInterval(fetchData, 1000);
 })()
