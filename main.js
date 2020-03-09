@@ -16,16 +16,18 @@
     }); /***  end of hack ***/
 
     //create map in leaflet and tie it to the div called 'theMap'
-    var map = L.map('theMap').setView([44.650627, -63.597140], 14);
+    let map = L.map('theMap').setView([44.650627, -63.597140], 14);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Data by <a href="https://www.halifax.ca/home/open-data/halifax-transit-open-data">Halifax Transit</a>'
     }).addTo(map);
 
-    var busIcon = L.icon({
-        iconUrl: 'bus2.png',
-        iconSize: [50, 50], // size of the icon
-    });
+    // let busIcon = L.icon({
+    //     iconUrl: 'bus2.png',
+    //     iconSize: [50, 50], // size of the icon
+    // });
+    
+
 
     let markers = null;
 
@@ -80,18 +82,26 @@
                             let month = feature.properties.start_date.slice(4, 6);
                             let day = feature.properties.start_date.slice(6, 8);
                             start_date = new Date(month + " " + day + " " + year).toDateString();
-                            console.log(feature.properties.start_date);
+                            // console.log(feature.properties.start_date);
                         }
 
+                        let busIcon = L.divIcon({
+                            className: 'my-div-icon',
+                            html: '<span class="my-div-span">' + feature.properties.route_id + '</span>' + '<img class="my-div-img" src="bus2.png" />'
+                        });
+
+                        let mypopup = L.popup({ closeOnClick: false, autoClose: false })
+                            .setContent(
+                                '<div class="my-popup"><h3>Bus #' + feature.properties.route_id + '</h3>' +
+                                'Unique ID: ' + feature.properties.unique_id + '<br/>' +
+                                'Trip ID: ' + feature.properties.trip_id + '<br/>' +
+                                'Start Date: ' + start_date + '<br/>' +
+                                'Speed: ' + feature.properties.speed + '<br/>' +
+                                'Vehicle ID: ' + feature.properties.veh_id + '</div>'
+                            );
+
                         let marker = L.marker(latlng, { icon: busIcon, rotationAngle: feature.properties.bearing });
-                        marker.bindPopup(
-                            '<h3>Bus #' + feature.properties.route_id + '</h3>' +
-                            'Unique ID: ' + feature.properties.unique_id + '<br/>' +
-                            'Trip ID: ' + feature.properties.trip_id + '<br/>' +
-                            'Start Date: ' + start_date + '<br/>' +
-                            'Speed: ' + feature.properties.speed + '<br/>' +
-                            'Vehicle ID: ' + feature.properties.veh_id + '<br/>'
-                        ).openPopup();
+                        marker.bindPopup(mypopup).openPopup();
                         return marker;
                     }
                 }).addTo(map);
